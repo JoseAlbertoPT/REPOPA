@@ -3,21 +3,21 @@ import type { User, Entity, RegulatoryDocument, GoverningBody, Director, Power }
 export const mockUsers: User[] = [
   {
     id: "1",
-    name: "María González",
+    name: "Javier Flores",
     email: "admin@morelos.gob.mx",
     password: "admin123",
     role: "Administrador",
   },
   {
     id: "2",
-    name: "Carlos Ramírez",
+    name: "Emanuel Coronato",
     email: "editor@morelos.gob.mx",
     password: "editor123",
     role: "Editor",
   },
   {
     id: "3",
-    name: "Ana Martínez",
+    name: "Marlene Cortes",
     email: "lector@morelos.gob.mx",
     password: "lector123",
     role: "Lector",
