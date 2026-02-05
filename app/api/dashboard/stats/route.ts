@@ -3,63 +3,72 @@ import { db } from "@/lib/db"
 
 export async function GET() {
   try {
-    // Total de entes (todos los registros activos)
+    // TOTAL DE ENTES ACTIVOS
     const [totalResult]: any = await db.query(`
-      SELECT COUNT(*) as total 
-      FROM entes 
+      SELECT COUNT(*) AS total
+      FROM entes
       WHERE estatus = 'Activo'
     `)
-    const totalEntities = totalResult[0]?.total || 0
 
-    // Organismos Públicos Descentralizados (OPD)
+    const totalEntities = totalResult?.[0]?.total ?? 0
+
+    // ORGANISMOS PÚBLICOS DESCENTRALIZADOS (OPD)
     const [opdResult]: any = await db.query(`
-      SELECT COUNT(*) as total 
-      FROM entes 
-      WHERE tipo_ente = 'OPD' AND estatus = 'Activo'
+      SELECT COUNT(*) AS total
+      FROM entes
+      WHERE tipo_ente = 'OPD'
+        AND estatus = 'Activo'
     `)
-    const activeOrganisms = opdResult[0]?.total || 0
 
-    // Fideicomisos (el valor real es "Fideicomiso", no "FI")
+    const activeOrganisms = opdResult?.[0]?.total ?? 0
+
+    // FIDEICOMISOS
     const [fiResult]: any = await db.query(`
-      SELECT COUNT(*) as total 
-      FROM entes 
-      WHERE tipo_ente = 'Fideicomiso' AND estatus = 'Activo'
+      SELECT COUNT(*) AS total
+      FROM entes
+      WHERE tipo_ente = 'Fideicomiso'
+        AND estatus = 'Activo'
     `)
-    const activeTrusts = fiResult[0]?.total || 0
 
-    // Empresas de Participación Estatal (el valor real es "Empresa Pública", no "EPEM")
+    const activeTrusts = fiResult?.[0]?.total ?? 0
+
+    // EMPRESAS DE PARTICIPACIÓN ESTATAL (EPEM)
     const [epemResult]: any = await db.query(`
-      SELECT COUNT(*) as total 
-      FROM entes 
-      WHERE tipo_ente = 'Empresa Pública' AND estatus = 'Activo'
+      SELECT COUNT(*) AS total
+      FROM entes
+      WHERE tipo_ente = 'EPEM'
+        AND estatus = 'Activo'
     `)
-    const activeEPEM = epemResult[0]?.total || 0
 
-    // Últimos 5 entes registrados
+    const activeEPEM = epemResult?.[0]?.total ?? 0
+
+    // ÚLTIMOS 5 ENTES REGISTRADOS
     const [recentEntities]: any = await db.query(`
-      SELECT 
+      SELECT
         id,
-        nombre_oficial as name,
-        folio_inscripcion as folio,
+        nombre_oficial AS name,
+        folio_inscripcion AS folio,
         tipo_ente
-      FROM entes 
+      FROM entes
       WHERE estatus = 'Activo'
-      ORDER BY created_at DESC 
+      ORDER BY created_at DESC
       LIMIT 5
     `)
 
+    // RESPUESTA FINAL
     return NextResponse.json({
       totalEntities,
       activeOrganisms,
       activeTrusts,
       activeEPEM,
-      recentEntities: recentEntities || []
+      recentEntities: recentEntities ?? []
     })
 
   } catch (error) {
     console.error("Error al cargar estadísticas del dashboard:", error)
+
     return NextResponse.json(
-      { 
+      {
         error: "Error al cargar estadísticas",
         totalEntities: 0,
         activeOrganisms: 0,

@@ -45,13 +45,11 @@ export default function RegulatoryPage() {
     })
   }, [docs, search, filterEntity])
 
-  // Función para obtener el nombre del ente
   const getEntityName = (entityId: number) => {
     const entity = entities.find(e => e.id === entityId)
     return entity?.name || ""
   }
 
-  // Función para extraer el nombre del archivo de la URL
   const getFileName = (fileUrl: string | null) => {
     if (!fileUrl) return null
     const parts = fileUrl.split('/')
@@ -115,7 +113,6 @@ export default function RegulatoryPage() {
         entityId: Number(form.entityId),
         type: form.type,
         issueDate: form.issueDate || null,
-        validity: true,
         file: archivoUrl,
         notes: form.notes || null
       }

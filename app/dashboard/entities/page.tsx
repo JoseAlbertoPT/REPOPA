@@ -1,4 +1,4 @@
-"use client"
+ "use client"
 
 import { useState, useEffect } from "react"
 import type { User, Entity } from "@/lib/types"
@@ -195,7 +195,7 @@ export default function EntitiesPage() {
           <p className="text-muted-foreground mt-2">Registro Público de Organismos Públicos Auxiliares</p>
         </div>
         
-        {/* Add New Entity Dialog */}
+        {}
         {canEdit && (
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
@@ -505,7 +505,7 @@ export default function EntitiesPage() {
         </CardContent>
       </Card>
 
-      {/* View Dialog */}
+      {}
       <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -568,7 +568,7 @@ export default function EntitiesPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Edit Dialog */}
+      {}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -739,7 +739,7 @@ export default function EntitiesPage() {
         </DialogContent>
       </Dialog>
 
-      {/* E-firma Dialog for Constancia */}
+      {}
       <Dialog open={showConstanciaEfirmaDialog} onOpenChange={setShowConstanciaEfirmaDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>

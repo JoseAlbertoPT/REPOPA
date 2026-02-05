@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Plus, Search, Edit, Trash2, UserCog, Eye } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 
+// ✅ CORREGIDO: endDate eliminado
 interface Director {
   id: number
   entityId: number
@@ -21,7 +22,6 @@ interface Director {
   position: string
   responsibilityType: string
   startDate: string
-  endDate: string
   supportDocument: string
   observations: string
 }
@@ -417,7 +417,7 @@ export default function DirectorsPage() {
         )}
       </div>
 
-      {/* Diálogo de ver detalles */}
+      {/* ✅ CORREGIDO: Modal Ver sin Fecha de Conclusión */}
       <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
@@ -448,10 +448,6 @@ export default function DirectorsPage() {
                   <Label className="text-muted-foreground">Fecha de Nombramiento</Label>
                   <p className="font-medium">{formatDate(selectedDirector.startDate)}</p>
                 </div>
-                <div>
-                  <Label className="text-muted-foreground">Fecha de Conclusión</Label>
-                  <p className="font-medium">{formatDate(selectedDirector.endDate)}</p>
-                </div>
                 <div className="col-span-2">
                   <Label className="text-muted-foreground">Documento Soporte</Label>
                   <p className="font-medium">{selectedDirector.supportDocument || "No especificado"}</p>
@@ -469,7 +465,7 @@ export default function DirectorsPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Diálogo de editar */}
+      {/* Modal Editar */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -599,9 +595,9 @@ export default function DirectorsPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
+            {/* ✅ CORREGIDO: Badge siempre "Vigente", endDate eliminado */}
             {filteredDirectors.map((director) => {
               const entity = entities.find((e) => e.id === director.entityId)
-              const isActive = !director.endDate || new Date(director.endDate) > new Date()
 
               return (
                 <div
@@ -617,7 +613,7 @@ export default function DirectorsPage() {
                         <h3 className="font-semibold text-lg">{director.name}</h3>
                         <p className="text-sm text-muted-foreground">{director.position}</p>
                       </div>
-                      <Badge variant={isActive ? "default" : "outline"}>{isActive ? "Vigente" : "Concluido"}</Badge>
+                      <Badge variant="default">Vigente</Badge>
                     </div>
                     <div className="space-y-1 text-sm text-muted-foreground mb-3">
                       <p>
@@ -628,7 +624,6 @@ export default function DirectorsPage() {
                       </p>
                       <p>
                         <strong>Inicio:</strong> {formatDate(director.startDate)}
-                        {director.endDate && ` - Fin: ${formatDate(director.endDate)}`}
                       </p>
                       {director.supportDocument && (
                         <p>
