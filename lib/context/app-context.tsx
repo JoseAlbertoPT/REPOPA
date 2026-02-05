@@ -75,7 +75,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         return
       }
       const data = await res.json()
-      console.log("Usuarios cargados:", data) // Para debug
+      console.log("Usuarios cargados:", data) 
       setUsers(data)
     } catch (error) {
       console.error("Error al cargar usuarios:", error)

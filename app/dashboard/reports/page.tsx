@@ -46,7 +46,6 @@ export default function ReportsPage() {
     }
   }, [])
 
-  //   Fetch a la API con mejor manejo de errores
   useEffect(() => {
     const loadReports = async () => {
       try {
@@ -81,7 +80,6 @@ export default function ReportsPage() {
     loadReports()
   }, [toast])
 
-  //   Reemplazar variables seguras con datos de la API
   const safeEntities = apiData?.entities || []
   const safeGoverningBodies = apiData?.governingBodies || []
   const safeDirectors = apiData?.directors || []
@@ -161,7 +159,6 @@ export default function ReportsPage() {
       return false
     }
 
-    // Simulate validation (in production this would verify the files)
     toast({
       title: "e.firma validada",
       description: "Los archivos de e.firma son válidos",
@@ -612,7 +609,6 @@ export default function ReportsPage() {
 
   const trendData = getMonthlyTrendData()
 
-  //  CAMBIO 4 — Loading UI mejorado
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -624,7 +620,6 @@ export default function ReportsPage() {
     )
   }
 
-  //  Error UI
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">

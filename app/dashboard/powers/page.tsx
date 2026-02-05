@@ -272,7 +272,7 @@ export default function PowersPage() {
       })
 
       const responseData = await res.json()
-      console.log("✅ Respuesta del servidor:", responseData)
+      console.log(" Respuesta del servidor:", responseData)
 
       if (res.ok) {
         toast({
@@ -291,7 +291,7 @@ export default function PowersPage() {
         })
       }
     } catch (error) {
-      console.error("❌ Error saving power:", error)
+      console.error(" Error saving power:", error)
       toast({
         title: "Error de conexión",
         description: "No se pudo conectar con el servidor. Verifique su conexión.",
@@ -619,7 +619,7 @@ export default function PowersPage() {
         )}
       </div>
 
-      {/* Diálogo de ver detalles */}
+      {}
       <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
@@ -664,7 +664,7 @@ export default function PowersPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Diálogo de editar */}
+      {}
       <Dialog
         open={isEditDialogOpen}
         onOpenChange={(open) => {

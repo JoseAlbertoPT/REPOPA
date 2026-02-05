@@ -49,7 +49,6 @@ export default function UsersPage() {
       const user = JSON.parse(userStr)
       setCurrentUser(user)
 
-      // Only administrators can access this page
       if (user.role !== "ADMIN") {
         toast({
           title: "Acceso Denegado",
@@ -61,7 +60,6 @@ export default function UsersPage() {
     }
   }, [router, toast])
 
-  // Safety check for undefined users array
   const safeUsers = users || []
 
   const filteredUsers = safeUsers.filter((user) => {
@@ -82,7 +80,6 @@ export default function UsersPage() {
       return
     }
 
-    // Check if email already exists
     if (safeUsers.some((u) => u.email === formData.email)) {
       toast({
         title: "Error",
@@ -158,7 +155,6 @@ export default function UsersPage() {
   const handleDelete = async (id: number) => {
     const userToDelete = safeUsers.find((u) => u.id === id)
 
-    // Prevent deleting yourself
     if (currentUser?.id === id) {
       toast({
         title: "Error",
@@ -493,7 +489,7 @@ export default function UsersPage() {
         </CardContent>
       </Card>
 
-      {/* Edit Dialog */}
+      {}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>

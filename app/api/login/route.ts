@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     const roles = rolesRows as any[];
     const rolBD = roles[0]?.nombre || "CONSULTA";
 
-    //  IMPORTANTE: NO traducir el rol
+    //  IMPORTANTE: 
     // Debe coincidir EXACTAMENTE con el frontend:
     // "ADMIN" | "CAPTURISTA" | "CONSULTA"
     const rolFrontend = rolBD;

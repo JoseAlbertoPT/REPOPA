@@ -62,7 +62,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <ThemeProvider defaultTheme="light">
       <AppProvider>
         <div className="min-h-screen bg-background">
-          {/* SIDEBAR */}
+          {}
           <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
             <div className="flex flex-col flex-grow border-r border-border bg-card overflow-y-auto">
               <div className="flex items-center justify-center p-6 border-b border-border">
@@ -101,7 +101,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
           </div>
 
-          {/* CONTENIDO */}
+          {}
           <div className="lg:pl-64">
             <div className="flex justify-end p-4 border-b">
               <div className="flex items-center gap-4">

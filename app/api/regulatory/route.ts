@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server"
 import { db } from "@/lib/db"
 
-//
+
 //  OBTENER TODOS LOS DOCUMENTOS NORMATIVOS
-//
+
 export async function GET() {
   try {
     const [rows]: any = await db.query(`
@@ -28,9 +28,8 @@ export async function GET() {
   }
 }
 
-//
+
 // CREAR DOCUMENTO NORMATIVO
-//
 export async function POST(req: Request) {
   try {
     const data = await req.json()

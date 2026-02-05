@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server"
 import { db } from "@/lib/db"
 
-//
+
 //  ACTUALIZAR DOCUMENTO
-//
 export async function PUT(
   req: Request,
   { params }: { params: { id: string } }
@@ -35,9 +34,8 @@ export async function PUT(
   }
 }
 
-//
+
 // ELIMINAR DOCUMENTO
-//
 export async function DELETE(
   req: Request,
   { params }: { params: { id: string } }

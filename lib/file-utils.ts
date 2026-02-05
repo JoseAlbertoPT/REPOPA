@@ -2,7 +2,7 @@ export const handleFileUpload = async (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => {
-      // Store file as base64 with metadata
+
       const base64 = reader.result as string
       const fileData = {
         name: file.name,
@@ -10,7 +10,7 @@ export const handleFileUpload = async (file: File): Promise<string> => {
         size: file.size,
         data: base64,
       }
-      // Return JSON string that can be stored
+
       resolve(JSON.stringify(fileData))
     }
     reader.onerror = reject
@@ -22,7 +22,7 @@ export const getFileInfo = (fileString: string): { name: string; type: string; s
   try {
     return JSON.parse(fileString)
   } catch {
-    // Legacy format - just filename
+
     return { name: fileString, type: "", size: 0, data: "" }
   }
 }
