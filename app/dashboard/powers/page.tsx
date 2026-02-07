@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import type { User } from "@/lib/types"
+import { useAuth } from "@/lib/context/auth-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -84,7 +84,7 @@ const getAttorneysArray = (attorneys: string[] | string): string[] => {
 
 export default function PowersPage() {
   const { toast } = useToast()
-  const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const { currentUser } = useAuth()
   const [searchTerm, setSearchTerm] = useState("")
   const [filterEntity, setFilterEntity] = useState<string>("Todos")
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
@@ -106,13 +106,6 @@ export default function PowersPage() {
     grantDate: "",
     document: "",
   })
-
-  useEffect(() => {
-    const userStr = sessionStorage.getItem("currentUser")
-    if (userStr) {
-      setCurrentUser(JSON.parse(userStr))
-    }
-  }, [])
 
   // Cargar los entes desde la API
   const loadEntities = async () => {
@@ -263,7 +256,7 @@ export default function PowersPage() {
         fileUrl: fileUrl,
       }
 
-      console.log("📤 Enviando datos:", payload)
+      console.log(" Enviando datos:", payload)
 
       const res = await fetch("/api/poderes", {
         method: "POST",
@@ -619,7 +612,7 @@ export default function PowersPage() {
         )}
       </div>
 
-      {}
+      {/* View Dialog */}
       <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
@@ -664,7 +657,7 @@ export default function PowersPage() {
         </DialogContent>
       </Dialog>
 
-      {}
+      {/* Edit Dialog */}
       <Dialog
         open={isEditDialogOpen}
         onOpenChange={(open) => {

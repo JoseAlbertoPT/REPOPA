@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import type { User, GoverningBody } from "@/lib/types"
+import { useAuth } from "@/lib/context/auth-context"
+import type { GoverningBody } from "@/lib/types"
 import { useApp } from "@/lib/context/app-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,7 +15,6 @@ import { Plus, Search, Edit, Trash2, Users, Save, Eye } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
-// Función auxiliar para formatear fechas
 const formatDate = (dateString: string | null | undefined): string => {
   if (!dateString) return "No especificada"
   
@@ -22,7 +22,6 @@ const formatDate = (dateString: string | null | undefined): string => {
     const date = new Date(dateString)
     if (isNaN(date.getTime())) return "No especificada"
     
-    // Formatear como DD/MM/YYYY
     const day = date.getDate().toString().padStart(2, '0')
     const month = (date.getMonth() + 1).toString().padStart(2, '0')
     const year = date.getFullYear()
@@ -50,12 +49,11 @@ const formatDateForInput = (dateString: string | null | undefined): string => {
 export default function GoverningBodiesPage() {
   const { governingBodies, addGoverningBody, updateGoverningBody, deleteGoverningBody } = useApp()
   const { toast } = useToast()
-  const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const { currentUser } = useAuth()
   const [searchTerm, setSearchTerm] = useState("")
   const [filterEntity, setFilterEntity] = useState<string>("Todos")
   const [filterStatus, setFilterStatus] = useState<"Todos" | "Activo" | "Concluido">("Todos")
   
-  // Estado local para manejar los integrantes y entes desde la API
   const [localGoverningBodies, setLocalGoverningBodies] = useState<GoverningBody[]>([])
   const [localEntities, setLocalEntities] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -79,13 +77,6 @@ export default function GoverningBodiesPage() {
   const [editDialogOpen, setEditDialogOpen] = useState(false)
   const [selectedBody, setSelectedBody] = useState<GoverningBody | null>(null)
   const [editFormData, setEditFormData] = useState<Partial<GoverningBody>>({})
-
-  useEffect(() => {
-    const userStr = sessionStorage.getItem("currentUser")
-    if (userStr) {
-      setCurrentUser(JSON.parse(userStr))
-    }
-  }, [])
 
   // Cargar entes desde la API
   const loadEntities = async () => {

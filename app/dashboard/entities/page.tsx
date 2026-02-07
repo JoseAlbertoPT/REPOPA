@@ -1,7 +1,8 @@
- "use client"
+"use client"
 
 import { useState, useEffect } from "react"
-import type { User, Entity } from "@/lib/types"
+import { useAuth } from "@/lib/context/auth-context"
+import type { Entity } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -18,8 +19,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 
 export default function EntitiesPage() {
   const { toast } = useToast()
+  const { currentUser } = useAuth()
   const [entities, setEntities] = useState<Entity[]>([])
-  const [currentUser, setCurrentUser] = useState<User | null>(null)
 
   const [searchTerm, setSearchTerm] = useState("")
   const [filterType, setFilterType] = useState("Todos")
@@ -50,11 +51,6 @@ export default function EntitiesPage() {
     bookAntecedents: [],
     requestLetter: "",
   })
-
-  useEffect(() => {
-    const userStr = sessionStorage.getItem("currentUser")
-    if (userStr) setCurrentUser(JSON.parse(userStr))
-  }, [])
 
   const loadEntities = async () => {
     try {
@@ -195,7 +191,6 @@ export default function EntitiesPage() {
           <p className="text-muted-foreground mt-2">Registro Público de Organismos Públicos Auxiliares</p>
         </div>
         
-        {}
         {canEdit && (
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
@@ -505,7 +500,7 @@ export default function EntitiesPage() {
         </CardContent>
       </Card>
 
-      {}
+      {/* View Dialog */}
       <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -568,7 +563,7 @@ export default function EntitiesPage() {
         </DialogContent>
       </Dialog>
 
-      {}
+      {/* Edit Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -739,7 +734,7 @@ export default function EntitiesPage() {
         </DialogContent>
       </Dialog>
 
-      {}
+      {/* E-firma Dialog */}
       <Dialog open={showConstanciaEfirmaDialog} onOpenChange={setShowConstanciaEfirmaDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>
